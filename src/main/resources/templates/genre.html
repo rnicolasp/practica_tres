@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Genre</title>
+</head>
+<body>
+<div>
+    <div>Añadir Nuevo Género</div>
+    <div>
+        <form th:action="@{/generos/guardar}" method="post">
+            <div>
+                <input type="text" name="nombreGenero" class="form-control" placeholder="Nombre del género (ej: Terror)" required>
+            </div>
+            <div class="col-auto">
+                <button type="submit">Añadir</button>
+            </div>
+        </form>
+    </div>
+</div>
+<ul>
+    <li th:each="u : ${genre}">
+        [[${u.genre_id}]] - [[${u.genre_name}]]
+    </li>
+</ul>
+</body>
+</html>
