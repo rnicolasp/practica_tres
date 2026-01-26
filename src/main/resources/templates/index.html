@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies App - Menú Principal</title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+
+<header>
+    <h1>Movies tubies</h1>
+</header>
+
+<nav>
+    <a th:href="@{/}">Inicio</a>
+    <a th:href="@{/movies}">Películas</a>
+    <a th:href="@{/genre}">Géneros</a>
+    <a th:href="@{/keyword}">Keywords</a>
+    <a th:href="@{/country}">Países</a>
+    <a th:href="@{/language}">Idiomas</a>
+    <a th:href="@{/gender}">Géneros</a>
+    <a th:href="@{/person}">Personas (Cast/Crew)</a>
+</nav>
+
+<div class="container">
+    <h2>Bienvenido a la aplicación de gestión</h2>
+    <p>Utiliza la barra de navegación superior para gestionar el catálogo de películas y sus entidades asociadas.</p>
+
+    <h3>Secciones disponibles:</h3>
+    <ul>
+        <li><strong>Películas:</strong> Búsqueda, filtrado y gestión del catálogo.</li>
+        <li><strong>Géneros:</strong> Administración de categorías (Terror, Acción, etc.).</li>
+        <li><strong>Keywords:</strong> Gestión de etiquetas de búsqueda.</li>
+        <li><strong>Personas:</strong> Base de datos de actores y equipo técnico.</li>
+    </ul>
+</div>
+
+</body>
+</html>
