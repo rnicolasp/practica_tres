@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Películas</title>
+</head>
+<body>
+
+<h1>Buscador de Películas</h1>
+
+<form th:action="@{/movies}" method="get">
+    <input type="text" name="title" placeholder="titulo...">
+    <input type="text" name="actor" placeholder="actor..">
+    <input type="text" name="genre" placeholder="genero...">
+    <button type="submit">Buscar</button>
+    <a th:href="@{/movies}">Reset</a>
+</form>
+
+<hr>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Título</th>
+        <th>Géneros</th>
+        <th>Popularidad</th>
+        <th>Fecha Lanzamiento</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="m : ${movies}">
+        <td th:text="${m.movie_id}"></td>
+        <td th:text="${m.title}"></td>
+        <td>
+            <ul>
+                <li th:each="g : ${m.genres}" th:text="${g.genre_name}"></li>
+            </ul>
+        </td>
+        <td th:text="${m.popularity}"></td>
+        <td th:text="${#dates.format(m.release_date, 'dd/MM/yyyy')}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<p th:if="${#lists.isEmpty(movies)}">No se han encontrado peluiculas.</p>
+
+</body>
+</html>

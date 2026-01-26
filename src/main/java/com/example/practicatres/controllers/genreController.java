@@ -1,7 +1,7 @@
 package com.example.practicatres.controllers;
 
 import com.example.practicatres.models.entities.genre;
-import com.example.practicatres.repository.genreRepo;
+import com.example.practicatres.services.genreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,12 +15,11 @@ import java.util.List;
 public class genreController {
 
     @Autowired
-    genreRepo genreRepository;
+    genreService genreService;
 
     @GetMapping("/genre")
     public String verGeneros(Model model) {
-        List<genre> genre = genreRepository.findAll();
-
+        List<genre> genre = genreService.findAll();
         model.addAttribute("genre", genre);
         return "genre";
     }
@@ -30,9 +29,20 @@ public class genreController {
         if (nombreGenero != null && !nombreGenero.trim().isEmpty()) {
             genre nuevo = new genre();
             nuevo.setGenre_name(nombreGenero);
-
-            genreRepository.save(nuevo);
+            genreService.save(nuevo);
         }
+        return "redirect:/genre";
+    }
+
+    @GetMapping("/genre/editar/{id}")
+    public String editarGenero(@RequestParam Integer id, Model model) {
+        model.addAttribute("genre", genreService.findById(id));
+        return "genre_form";
+    }
+
+    @GetMapping("/genre/eliminar/{id}")
+    public String eliminarGenero(@RequestParam Integer id) {
+        genreService.delete(id);
         return "redirect:/genre";
     }
 }
