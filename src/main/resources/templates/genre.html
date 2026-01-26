@@ -11,8 +11,7 @@
     <div>
         <form th:action="@{/generos/guardar}" method="post">
             <div>
-                <input type="text" name="nombreGenero" class="form-control" placeholder="Nombre del género (ej: Terror)"
-                       required>
+                <input type="text" name="nombreGenero" class="form-control" placeholder="Nombre del género" required>
             </div>
             <div class="col-auto">
                 <button type="submit">Añadir</button>
@@ -29,12 +28,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="g : ${genres}">
+    <tr th:each="g : ${genre}">
         <td th:text="${g.genre_id}"></td>
         <td th:text="${g.genre_name}"></td>
         <td>
-            <a th:href="@{/genre/edit/{id}(id=${g.genre_id})}">Editar</a>
-            <a th:href="@{/genre/delete/{id}(id=${g.genre_id})}"
+            <a th:href="@{/genre/editar/{id}(id=${g.genre_id})}">Editar</a>
+            <a th:href="@{/genre/eliminar/{id}(id=${g.genre_id})}"
                onclick="return confirm('¿Seguro?')">Eliminar</a>
         </td>
     </tr>

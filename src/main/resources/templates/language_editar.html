@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Idioma</title>
+</head>
+<body>
+
+<h1>Editar Idioma</h1>
+
+<form th:action="@{/languages/guardar}" method="post">
+
+    <input type="hidden" name="language_id" th:value="${language.language_id}" />
+
+    <div>
+        <label>Código del Idioma:</label>
+        <input type="text" name="code" th:value="${language.language_code}" required />
+    </div>
+
+    <div>
+        <label>Nombre del Idioma:</label>
+        <input type="text" name="nombreLanguage" th:value="${language.language_name}" required />
+    </div>
+
+    <br>
+    <button type="submit">Guardar Cambios</button>
+    <a th:href="@{/language}">Cancelar</a>
+</form>
+
+</body>
+</html>

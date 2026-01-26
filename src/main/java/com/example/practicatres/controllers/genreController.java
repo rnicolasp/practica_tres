@@ -5,9 +5,7 @@ import com.example.practicatres.services.genreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,23 +23,28 @@ public class genreController {
     }
 
     @PostMapping("/generos/guardar")
-    public String guardarGenero(@RequestParam String nombreGenero) {
+    public String guardarGenero(@RequestParam String nombreGenero, @RequestParam(required = false) Integer genre_id) {
+        genre g;
+        if (genre_id != null) {
+            g = genreService.findById(genre_id);
+        } else {
+            g = new genre();
+        }
         if (nombreGenero != null && !nombreGenero.trim().isEmpty()) {
-            genre nuevo = new genre();
-            nuevo.setGenre_name(nombreGenero);
-            genreService.save(nuevo);
+            g.setGenre_name(nombreGenero);
+            genreService.save(g);
         }
         return "redirect:/genre";
     }
 
     @GetMapping("/genre/editar/{id}")
-    public String editarGenero(@RequestParam Integer id, Model model) {
+    public String editarGenero(@PathVariable Integer id, Model model) {
         model.addAttribute("genre", genreService.findById(id));
-        return "genre_form";
+        return "genre_editar";
     }
 
     @GetMapping("/genre/eliminar/{id}")
-    public String eliminarGenero(@RequestParam Integer id) {
+    public String eliminarGenero(@PathVariable Integer id) {
         genreService.delete(id);
         return "redirect:/genre";
     }

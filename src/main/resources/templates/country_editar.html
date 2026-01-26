@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar País</title>
+</head>
+<body>
+
+<h1>Editar País</h1>
+
+<form th:action="@{/countries/guardar}" method="post">
+
+    <input type="hidden" name="country_id" th:value="${country.country_id}" />
+
+    <div>
+        <label>Código ISO:</label>
+        <input type="text" name="isoCode" th:value="${country.country_iso_code}" required />
+    </div>
+
+    <div>
+        <label>Nombre del País:</label>
+        <input type="text" name="nombreCountry" th:value="${country.country_name}" required />
+    </div>
+
+    <br>
+    <button type="submit">Guardar Cambios</button>
+    <a th:href="@{/country}">Cancelar</a>
+</form>
+
+</body>
+</html>

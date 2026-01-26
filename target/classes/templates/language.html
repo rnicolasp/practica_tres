@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Language</title>
+</head>
+<body>
+<div>
+    <div>Añadir Nuevo Idioma</div>
+    <div>
+        <form th:action="@{/languages/guardar}" method="post">
+            <div>
+                <input type="text" name="code" class="form-control" placeholder="Código" required>
+            </div>
+            <div>
+                <input type="text" name="nombreLanguage" class="form-control" placeholder="Nombre del idioma" required>
+            </div>
+            <div class="col-auto">
+                <button type="submit">Añadir</button>
+            </div>
+        </form>
+    </div>
+</div>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Código</th>
+        <th>Nombre</th>
+        <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="l : ${languages}">
+        <td th:text="${l.language_id}"></td>
+        <td th:text="${l.language_code}"></td>
+        <td th:text="${l.language_name}"></td>
+        <td>
+            <a th:href="@{/language/editar/{id}(id=${l.language_id})}">Editar</a>
+            <a th:href="@{/language/eliminar/{id}(id=${l.language_id})}"
+               onclick="return confirm('¿Seguro?')">Eliminar</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

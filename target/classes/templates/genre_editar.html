@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Género</title>
+</head>
+<body>
+
+<h1>Editar Género</h1>
+
+<form th:action="@{/generos/guardar}" method="post">
+
+    <input type="hidden" name="genre_id" th:value="${genre.genre_id}" />
+
+    <div>
+        <label>Nombre del Género:</label>
+        <input type="text" name="nombreGenero" th:value="${genre.genre_name}" required />
+    </div>
+
+    <br>
+    <button type="submit">Guardar Cambios</button>
+    <a th:href="@{/genre}">Cancelar</a>
+</form>
+
+</body>
+</html>

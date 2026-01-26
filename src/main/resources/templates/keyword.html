@@ -3,15 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Genre</title>
+    <title>Keyword</title>
 </head>
 <body>
 <div>
-    <div>Añadir Nuevo Género</div>
+    <div>Añadir Nuevo Keyword</div>
     <div>
-        <form th:action="@{/generos/guardar}" method="post">
+        <form th:action="@{/keyword/guardar}" method="post">
             <div>
-                <input type="text" name="nombreGenero" class="form-control" placeholder="Nombre del género" required>
+                <input type="text" name="nombreKeyword" class="form-control" placeholder="Nombre del keyword"
+                       required>
             </div>
             <div class="col-auto">
                 <button type="submit">Añadir</button>
@@ -28,12 +29,12 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="g : ${genre}">
-        <td th:text="${g.genre_id}"></td>
-        <td th:text="${g.genre_name}"></td>
+    <tr th:each="g : ${keyword}">
+        <td th:text="${g.keyword_id}"></td>
+        <td th:text="${g.keyword_name}"></td>
         <td>
-            <a th:href="@{/genre/editar/{id}(id=${g.genre_id})}">Editar</a>
-            <a th:href="@{/genre/eliminar/{id}(id=${g.genre_id})}"
+            <a th:href="@{/keyword/editar/{id}(id=${g.keyword_id})}">Editar</a>
+            <a th:href="@{/keyword/eliminar/{id}(id=${g.keyword_id})}"
                onclick="return confirm('¿Seguro?')">Eliminar</a>
         </td>
     </tr>

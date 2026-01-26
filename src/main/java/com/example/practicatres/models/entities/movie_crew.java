@@ -10,10 +10,12 @@ public class movie_crew {
     movie_crew_id id;
 
     @ManyToOne
+    @MapsId("movie_id")
     @JoinColumn(name = "movie_id")
     private movie movie;
 
     @ManyToOne
+    @MapsId("person_id")
     @JoinColumn(name = "person_id")
     private person person;
 
@@ -23,27 +25,23 @@ public class movie_crew {
     @Column(length = 200)
     private String department;
 
-    public movie getMovie() { return movie; }
-    public person getPerson() { return person; }
-    public String getJob() { return job; }
+    public movie_crew_id getId() { return id; }
+    public void setId(movie_crew_id id) { this.id = id; }
+
+    public movie getMovie() {
+        return movie;
+    }
 
     public void setMovie(movie movie) {
         this.movie = movie;
     }
 
-    public void setPerson(person person) {
-        this.person = person;
-    }
+    public person getPerson() { return person; }
+    public void setPerson(person person) { this.person = person; }
 
-    public void setJob(String job) {
-        this.job = job;
-    }
+    public String getJob() { return job; }
+    public void setJob(String job) { this.job = job; }
 
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
+    public String getDepartment() { return department; }
+    public void setDepartment(String department) { this.department = department; }
 }
