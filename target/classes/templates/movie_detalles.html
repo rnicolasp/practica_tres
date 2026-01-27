@@ -6,22 +6,13 @@
     <link rel="stylesheet" th:href="@{/styles.css}">
 </head>
 <body>
-<nav>
-    <a th:href="@{/}">Inicio</a>
-    <a th:href="@{/movies}">Películas</a>
-    <a th:href="@{/genre}">Géneros</a>
-    <a th:href="@{/keyword}">Keywords</a>
-    <a th:href="@{/country}">Países</a>
-    <a th:href="@{/language}">Idiomas</a>
-    <a th:href="@{/gender}">Géneros</a>
-    <a th:href="@{/person}">Personas (Cast/Crew)</a>
-</nav>
+<div th:replace="~{navbar :: navbar}"></div>
 
 <h1 th:text="${movie.title}"></h1>
 
 <div>
     <p><strong>ID:</strong> <span th:text="${movie.movie_id}"></span></p>
-    <p><strong>Titulo:</strong> <span th:text="${movie.name}"></span></p>
+    <p><strong>Titulo:</strong> <span th:text="${movie.title}"></span></p>
     <p><strong>Presupuesto:</strong> <span th:text="${movie.budget}"></span></p>
     <p><strong>Fecha de Estreno:</strong> <span th:text="${#dates.format(movie.release_date, 'dd/MM/yyyy')}"></span></p>
     <p><strong>Duración:</strong> <span th:text="${movie.runtime} + ' min'"></span></p>
