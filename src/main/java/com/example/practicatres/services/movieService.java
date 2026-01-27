@@ -24,4 +24,16 @@ public class movieService {
         }
         return movieRepository.findAll();
     }
+
+    public void save(movie m) {
+        movieRepository.save(m);
+    }
+
+    public movie findById(Integer id) {
+        return movieRepository.findById(id).orElse(null);
+    }
+
+    public void delete(Integer id) {
+        movieRepository.deleteById(id);
+    }
 }

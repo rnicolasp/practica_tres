@@ -37,6 +37,7 @@
         <th>Géneros</th>
         <th>Popularidad</th>
         <th>Fecha Lanzamiento</th>
+        <th>Acciones</th>
     </tr>
     </thead>
     <tbody>
@@ -50,6 +51,12 @@
         </td>
         <td th:text="${m.popularity}"></td>
         <td th:text="${#dates.format(m.release_date, 'dd/MM/yyyy')}"></td>
+        <td>
+            <a th:href="@{/movies/detalles/{id}(id=${m.movie_id})}">Detalles</a> |
+            <a th:href="@{/movies/editar/{id}(id=${m.movie_id})}">Editar</a> |
+            <a th:href="@{/movies/eliminar/{id}(id=${m.movie_id})}"
+               onclick="return confirm('¿Estás seguro de eliminar esta película?')">Eliminar</a>
+        </td>
     </tr>
     </tbody>
 </table>

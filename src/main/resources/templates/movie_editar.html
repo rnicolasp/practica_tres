@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${tituloPagina}"></title>
+    <link rel="stylesheet" th:href="@{/styles.css}">
+</head>
+<body>
+<nav>
+    <a th:href="@{/}">Inicio</a>
+    <a th:href="@{/movies}">Películas</a>
+    <a th:href="@{/genre}">Géneros</a>
+    <a th:href="@{/keyword}">Keywords</a>
+    <a th:href="@{/country}">Países</a>
+    <a th:href="@{/language}">Idiomas</a>
+    <a th:href="@{/gender}">Géneros</a>
+    <a th:href="@{/person}">Personas (Cast/Crew)</a>
+</nav>
+
+<h1 th:text="${tituloPagina}"></h1>
+
+<form th:action="@{/movies/guardar}" method="post">
+    <input type="hidden" name="movie_id" th:value="${movie.movie_id}" />
+
+    <div>
+        <label>Título:</label>
+        <input type="text" name="title" th:value="${movie.title}" required />
+    </div>
+
+    <div>
+        <label>Presupuesto:</label>
+        <input type="number" name="budget" th:value="${movie.budget}" />
+    </div>
+
+    <div>
+        <label>Fecha de Estreno:</label>
+        <input type="date" name="release_date" th:value="${#dates.format(movie.release_date, 'yyyy-MM-dd')}" />
+    </div>
+
+    <div>
+        <label>Duración (min):</label>
+        <input type="number" name="runtime" th:value="${movie.runtime}" />
+    </div>
+
+    <div>
+        <label>Resumen (Overview):</label>
+        <textarea name="overview" rows="4" cols="50" th:text="${movie.overview}"></textarea>
+    </div>
+
+    <div>
+        <label>Estado (Status):</label>
+        <input type="text" name="movie_status" th:value="${movie.movie_status}" placeholder="Released" />
+    </div>
+
+    <div>
+        <label>Géneros:</label>
+        <div th:each="genre : ${allGenres}">
+            <input type="checkbox" name="selectedGenres" th:value="${genre.genre_id}"
+                   th:checked="${movie.genres.contains(genre)}" />
+            <label th:text="${genre.genre_name}"></label>
+        </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <button type="submit">Guardar Película</button>
+        <a th:href="@{/movies}">Cancelar</a>
+    </div>
+</form>
+</body>
+</html>

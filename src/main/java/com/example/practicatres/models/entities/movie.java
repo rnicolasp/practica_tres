@@ -1,6 +1,7 @@
 package com.example.practicatres.models.entities;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -44,6 +45,7 @@ public class movie {
     String overview;
     @Column(precision = 12, scale = 6)
     BigDecimal popularity;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     Date release_date;
     BigInteger revenue;
     Integer runtime;

@@ -4,6 +4,7 @@
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/genreController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/keywordController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/languageController.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/mainController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/movieController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/company.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/country.java
@@ -26,6 +27,8 @@
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/genreRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/keywordRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/languageRepo.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/movieCastRepo.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/movieCrewRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/movieRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/personRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/countryService.java
@@ -33,4 +36,7 @@
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/genreService.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/keywordService.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/languageService.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/movieCastService.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/movieCrewService.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/movieService.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/personService.java
