@@ -28,7 +28,7 @@ public class movieCastController {
     @GetMapping("/moviecast")
     public String listMovieCast(Model model,
                                 @RequestParam(defaultValue = "0") int page,
-                                @RequestParam(defaultValue = "10") int size,
+                                @RequestParam(defaultValue = "40") int size,
                                 @RequestParam(required = false) String q) {
         Page<movie_cast> pageResult = movieCastService.searchPaginated(q, page, size);
         model.addAttribute("castsPage", pageResult);

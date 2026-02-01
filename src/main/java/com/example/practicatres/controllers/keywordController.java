@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
 
 @Controller
 public class keywordController {
@@ -16,9 +17,16 @@ public class keywordController {
     keywordService keywordService;
 
     @GetMapping("/keyword")
-    public String verKeywords(Model model) {
-        List<keyword> keyword = keywordService.findAll();
-        model.addAttribute("keyword", keyword);
+    public String verKeywords(Model model,
+                              @RequestParam(defaultValue = "0") int page,
+                              @RequestParam(defaultValue = "40") int size,
+                              @RequestParam(required = false) String q) {
+        Page<keyword> keywordPage = keywordService.findPaginated(page, size, q);
+        model.addAttribute("keywordPage", keywordPage);
+        model.addAttribute("keyword", keywordPage.getContent());
+        model.addAttribute("q", q);
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
         return "keyword";
     }
 

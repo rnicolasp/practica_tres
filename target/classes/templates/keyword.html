@@ -10,7 +10,23 @@
 <div th:replace="~{navbar :: navbar}"></div>
 
 <div class="container mt-5">
-    <h1 class="mb-4">Keywords</h1>
+    <div class="row justify-content-between align-items-center mb-4">
+        <div class="col">
+            <h1>Keywords</h1>
+        </div>
+    </div>
+
+    <form th:action="@{/keyword}" method="get" class="row g-2 mb-3">
+        <div class="col-auto">
+            <input class="form-control form-control-sm" th:value="${q}" type="text" name="q" placeholder="Buscar keyword...">
+        </div>
+        <div class="col-auto">
+            <input type="hidden" name="page" th:value="${page}" />
+            <input type="hidden" name="size" th:value="${size}" />
+            <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
+            <a th:href="@{/keyword}" class="btn btn-sm btn-secondary">Reset</a>
+        </div>
+    </form>
     
     <div class="card mb-4">
         <div class="card-header bg-primary text-white">
@@ -48,6 +64,22 @@
             </tr>
             </tbody>
         </table>
+    </div>
+
+    <div th:if="${keywordPage != null}" class="d-flex justify-content-center mt-3">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${keywordPage.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{/keyword(q=${q},page=${keywordPage.number-1},size=${keywordPage.size})}">Anterior</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Página <span th:text="${keywordPage.number + 1}">1</span> de <span th:text="${keywordPage.totalPages}">1</span></span>
+                </li>
+                <li class="page-item" th:classappend="${keywordPage.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{/keyword(q=${q},page=${keywordPage.number+1},size=${keywordPage.size})}">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 

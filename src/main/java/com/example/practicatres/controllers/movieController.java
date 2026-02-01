@@ -47,7 +47,7 @@ public class movieController {
     @GetMapping("/movies")
     public String listMovies(@RequestParam(required = false) String title, @RequestParam(required = false) String actor, @RequestParam(required = false) String genre, Model model,
                              @RequestParam(defaultValue = "0") int page,
-                             @RequestParam(defaultValue = "10") int size) {
+                             @RequestParam(defaultValue = "40") int size) {
 
         org.springframework.data.domain.Page<movie> moviesPage = movieService.searchMoviesPaginated(title, actor, genre, page, size);
         model.addAttribute("moviesPage", moviesPage);
@@ -114,9 +114,9 @@ public class movieController {
     @GetMapping("/movies/detalles/{id}")
     public String detallesPelicula(@PathVariable Integer id, Model model,
                                    @RequestParam(defaultValue = "0") int castPage,
-                                   @RequestParam(defaultValue = "5") int castSize,
+                                   @RequestParam(defaultValue = "40") int castSize,
                                    @RequestParam(defaultValue = "0") int crewPage,
-                                   @RequestParam(defaultValue = "5") int crewSize) {
+                                   @RequestParam(defaultValue = "40") int crewSize) {
         movie m = movieService.findById(id);
         org.springframework.data.domain.Page<movie_cast> castPageObj = movieCastService.findByMovieIdPaginated(id, castPage, castSize);
         org.springframework.data.domain.Page<movie_crew> crewPageObj = movieCrewService.findByMovieIdPaginated(id, crewPage, crewSize);

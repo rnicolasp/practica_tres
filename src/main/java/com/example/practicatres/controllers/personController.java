@@ -17,7 +17,7 @@ public class personController {
     @GetMapping("/person")
     public String listPersons(Model model,
                               @RequestParam(defaultValue = "0") int page,
-                              @RequestParam(defaultValue = "10") int size,
+                              @RequestParam(defaultValue = "40") int size,
                               @RequestParam(required = false) String q) {
         Page<person> personsPage = personService.findPaginated(page, size, q);
         model.addAttribute("personsPage", personsPage);
