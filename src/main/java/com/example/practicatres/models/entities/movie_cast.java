@@ -11,21 +11,45 @@ public class movie_cast {
     @ManyToOne
     @MapsId("movie_id")
     @JoinColumn(name = "movie_id")
-    movie movie_id;
+    movie movie;
 
     @ManyToOne
     @MapsId("person_id")
     @JoinColumn(name = "person_id")
-    person person_id;
+    person person;
 
     @ManyToOne
     @MapsId("gender_id")
     @JoinColumn(name = "gender_id")
-    gender gender_id;
+    gender gender;
 
     @Column(length = 400)
     private String character_name;
     private Integer cast_order;
+
+    public movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(movie movie) {
+        this.movie = movie;
+    }
+
+    public person getPerson() {
+        return person;
+    }
+
+    public void setPerson(person person) {
+        this.person = person;
+    }
+
+    public gender getGender() {
+        return gender;
+    }
+
+    public void setGender(gender gender) {
+        this.gender = gender;
+    }
 
     public movie_cast_id getId() {
         return id;
@@ -36,27 +60,27 @@ public class movie_cast {
     }
 
     public movie getMovie_id() {
-        return movie_id;
+        return movie;
     }
 
     public void setMovie_id(movie movie_id) {
-        this.movie_id = movie_id;
+        this.movie = movie_id;
     }
 
     public person getPerson_id() {
-        return person_id;
+        return person;
     }
 
     public void setPerson_id(person person_id) {
-        this.person_id = person_id;
+        this.person = person_id;
     }
 
     public gender getGender_id() {
-        return gender_id;
+        return gender;
     }
 
     public void setGender_id(gender gender_id) {
-        this.gender_id = gender_id;
+        this.gender = gender_id;
     }
 
     public String getCharacter_name() {

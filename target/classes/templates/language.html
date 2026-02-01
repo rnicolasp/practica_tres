@@ -4,47 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Language</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{navbar :: navbar}"></div>
-<div>
-    <div>Añadir Nuevo Idioma</div>
-    <div>
-        <form th:action="@{/languages/guardar}" method="post">
-            <div>
-                <input type="text" name="code" class="form-control" placeholder="Código" required>
-            </div>
-            <div>
-                <input type="text" name="nombreLanguage" class="form-control" placeholder="Nombre del idioma" required>
-            </div>
-            <div class="col-auto">
-                <button type="submit">Añadir</button>
-            </div>
-        </form>
+
+<div class="container mt-5">
+    <h1 class="mb-4">Idiomas</h1>
+    
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Añadir Nuevo Idioma</h5>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/languages/guardar}" method="post">
+                <div class="mb-3">
+                    <input type="text" name="code" class="form-control" placeholder="Código" required>
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="nombreLanguage" class="form-control" placeholder="Nombre del idioma" required>
+                </div>
+                <button type="submit" class="btn btn-success">Añadir</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="l : ${languages}">
+                <td th:text="${l.language_id}"></td>
+                <td th:text="${l.language_code}"></td>
+                <td th:text="${l.language_name}"></td>
+                <td>
+                    <a th:href="@{/language/editar/{id}(id=${l.language_id})}" class="btn btn-sm btn-warning">Editar</a>
+                    <a th:href="@{/language/eliminar/{id}(id=${l.language_id})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro?')">Eliminar</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Código</th>
-        <th>Nombre</th>
-        <th>Acciones</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="l : ${languages}">
-        <td th:text="${l.language_id}"></td>
-        <td th:text="${l.language_code}"></td>
-        <td th:text="${l.language_name}"></td>
-        <td>
-            <a th:href="@{/language/editar/{id}(id=${l.language_id})}">Editar</a>
-            <a th:href="@{/language/eliminar/{id}(id=${l.language_id})}"
-               onclick="return confirm('¿Seguro?')">Eliminar</a>
-        </td>
-    </tr>
-    </tbody>
-</table>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

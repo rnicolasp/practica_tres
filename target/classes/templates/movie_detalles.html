@@ -2,123 +2,144 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Detalles de Película</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{navbar :: navbar}"></div>
 
-<h1 th:text="${movie.title}"></h1>
+<div class="container mt-5">
+    <h1 class="mb-4" th:text="${movie.title}"></h1>
 
-<div>
-    <p><strong>ID:</strong> <span th:text="${movie.movie_id}"></span></p>
-    <p><strong>Titulo:</strong> <span th:text="${movie.title}"></span></p>
-    <p><strong>Presupuesto:</strong> <span th:text="${movie.budget}"></span></p>
-    <p><strong>Fecha de Estreno:</strong> <span th:text="${#dates.format(movie.release_date, 'dd/MM/yyyy')}"></span></p>
-    <p><strong>Duración:</strong> <span th:text="${movie.runtime} + ' min'"></span></p>
-    <p><strong>Estado:</strong> <span th:text="${movie.movie_status}"></span></p>
-    <p><strong>Resumen:</strong> <span th:text="${movie.overview}"></span></p>
-    <p><strong>Generos:</strong>
-        <span th:each="g : ${movie.genres}" th:text="${g.genre_name} + (${g.genre_id}) + ' '"></span>
-    </p>
+    <div class="card mb-4">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <p><strong>ID:</strong> <span th:text="${movie.movie_id}"></span></p>
+                    <p><strong>Presupuesto:</strong> <span th:text="${movie.budget}"></span></p>
+                    <p><strong>Duración:</strong> <span th:text="${movie.runtime} + ' min'"></span></p>
+                </div>
+                <div class="col-md-6">
+                    <p><strong>Fecha de Estreno:</strong> <span th:text="${#dates.format(movie.release_date, 'dd/MM/yyyy')}"></span></p>
+                    <p><strong>Estado:</strong> <span th:text="${movie.movie_status}"></span></p>
+                </div>
+            </div>
+            <p><strong>Resumen:</strong> <span th:text="${movie.overview}"></span></p>
+            <p><strong>Géneros:</strong> <span th:each="g : ${movie.genres}" th:text="${g.genre_name}" class="badge bg-info"></span></p>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Reparto (Cast)</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Persona</th>
+                        <th>Personaje</th>
+                        <th>Género</th>
+                        <th>Orden</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="c : ${cast}">
+                        <td th:text="${c.person.person_name}"></td>
+                        <td th:text="${c.character_name}"></td>
+                        <td th:text="${c.gender_id.gender}"></td>
+                        <td th:text="${c.cast_order}"></td>
+                        <td>
+                            <a th:href="@{/movies/{movieId}/cast/eliminar/{personId}/{genderId}(movieId=${movie.movie_id}, personId=${c.person_id.person_id}, genderId=${c.gender_id.gender_id})}" class="btn btn-sm btn-danger"
+                               onclick="return confirm('¿Eliminar este actor?')">Eliminar</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5 class="mt-4 mb-3">Añadir Actor</h5>
+            <form th:action="@{/movies/{movieId}/cast/guardar(movieId=${movie.movie_id})}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Persona:</label>
+                    <select name="personId" class="form-select" required>
+                        <option th:each="p : ${allPersons}" th:value="${p.person_id}" th:text="${p.person_name}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Nombre del Personaje:</label>
+                    <input type="text" name="characterName" class="form-control" required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Género:</label>
+                    <select name="genderId" class="form-select" required>
+                        <option value="1">Masculino</option>
+                        <option value="2">Femenino</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Añadir Actor</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Equipo Técnico (Crew)</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-striped table-hover">
+                    <thead class="table-dark">
+                    <tr>
+                        <th>Persona</th>
+                        <th>Trabajo</th>
+                        <th>Departamento</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="cr : ${crew}">
+                        <td th:text="${cr.person.person_name}"></td>
+                        <td th:text="${cr.job}"></td>
+                        <td th:text="${cr.department}"></td>
+                        <td>
+                            <a th:href="@{/movies/{movieId}/crew/eliminar/{personId}(movieId=${movie.movie_id}, personId=${cr.person.person_id})}" class="btn btn-sm btn-danger"
+                               onclick="return confirm('¿Eliminar este miembro del equipo?')">Eliminar</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h5 class="mt-4 mb-3">Añadir Miembro del Equipo</h5>
+            <form th:action="@{/movies/{movieId}/crew/guardar(movieId=${movie.movie_id})}" method="post">
+                <div class="mb-3">
+                    <label class="form-label">Persona:</label>
+                    <select name="personId" class="form-select" required>
+                        <option th:each="p : ${allPersons}" th:value="${p.person_id}" th:text="${p.person_name}"></option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Trabajo:</label>
+                    <input type="text" name="job" class="form-control" placeholder="Director, Producer, etc." required />
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Departamento:</label>
+                    <input type="text" name="department" class="form-control" placeholder="Directing, Production, etc." required />
+                </div>
+                <button type="submit" class="btn btn-success">Añadir Miembro</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="mt-4 mb-4">
+        <a th:href="@{/movies}" class="btn btn-secondary">Volver a la lista</a>
+    </div>
 </div>
 
-<div>
-    <h2>Reparto (Cast)</h2>
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Persona</th>
-            <th>Personaje</th>
-            <th>Género</th>
-            <th>Orden</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="c : ${cast}">
-            <td th:text="${c.person_id.person_name}"></td>
-            <td th:text="${c.character_name}"></td>
-            <td th:text="${c.gender_id.gender}"></td>
-            <td th:text="${c.cast_order}"></td>
-            <td>
-                <a th:href="@{/movies/{movieId}/cast/eliminar/{personId}/{genderId}(movieId=${movie.movie_id}, personId=${c.person_id.person_id}, genderId=${c.gender_id.gender_id})}"
-                   onclick="return confirm('¿Eliminar este actor?')">Eliminar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <h3>Añadir Actor</h3>
-    <form th:action="@{/movies/{movieId}/cast/guardar(movieId=${movie.movie_id})}" method="post">
-        <div>
-            <label>Persona:</label>
-            <select name="personId" required>
-                <option th:each="p : ${allPersons}" th:value="${p.person_id}" th:text="${p.person_name}"></option>
-            </select>
-        </div>
-        <div>
-            <label>Nombre del Personaje:</label>
-            <input type="text" name="characterName" required />
-        </div>
-        <div>
-            <label>Género:</label>
-            <select name="genderId" required>
-                <option value="1">Masculino</option>
-                <option value="2">Femenino</option>
-            </select>
-        </div>
-        <button type="submit">Añadir Actor</button>
-    </form>
-</div>
-
-<div>
-    <h2>Equipo Técnico (Crew)</h2>
-    <table border="1">
-        <thead>
-        <tr>
-            <th>Persona</th>
-            <th>Trabajo</th>
-            <th>Departamento</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="cr : ${crew}">
-            <td th:text="${cr.person.person_name}"></td>
-            <td th:text="${cr.job}"></td>
-            <td th:text="${cr.department}"></td>
-            <td>
-                <a th:href="@{/movies/{movieId}/crew/eliminar/{personId}(movieId=${movie.movie_id}, personId=${cr.person.person_id})}"
-                   onclick="return confirm('¿Eliminar este miembro del equipo?')">Eliminar</a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-
-    <h3>Añadir Miembro del Equipo</h3>
-    <form th:action="@{/movies/{movieId}/crew/guardar(movieId=${movie.movie_id})}" method="post">
-        <div>
-            <label>Persona:</label>
-            <select name="personId" required>
-                <option th:each="p : ${allPersons}" th:value="${p.person_id}" th:text="${p.person_name}"></option>
-            </select>
-        </div>
-        <div>
-            <label>Trabajo:</label>
-            <input type="text" name="job" placeholder="Director, Producer, etc." required />
-        </div>
-        <div>
-            <label>Departamento:</label>
-            <input type="text" name="department" placeholder="Directing, Production, etc." required />
-        </div>
-        <button type="submit">Añadir Miembro</button>
-    </form>
-</div>
-
-<div style="margin-top: 20px;">
-    <a th:href="@{/movies}">Volver a la lista</a>
-</div>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

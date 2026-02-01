@@ -3,26 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar keyword</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{navbar :: navbar}"></div>
 
-<h1>Editar keyword</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Editar Keyword</h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/keyword/guardar}" th:object="${keyword}" method="post">
+                        <input type="hidden" th:field="*{keyword_id}" />
 
-<form th:action="@{/keyword/guardar}" th:object="${keyword}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Keyword:</label>
+                            <input type="text" class="form-control" th:field="*{keyword_name}" required />
+                        </div>
 
-    <input type="hidden" th:field="*{keyword_id}" />
-
-    <div>
-        <label>Nombre del Género:</label>
-        <input type="text" th:field="*{keyword_name}" required />
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                            <a th:href="@{/keyword}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <br>
-    <button type="submit">Guardar Cambios</button>
-    <a th:href="@{/keyword}">Cancelar</a>
-</form>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

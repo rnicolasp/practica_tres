@@ -3,31 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <title>Editar Idioma</title>
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 <div th:replace="~{navbar :: navbar}"></div>
 
-<h1>Editar Idioma</h1>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Editar Idioma</h5>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{/languages/guardar}" method="post">
+                        <input type="hidden" name="language_id" th:value="${language.language_id}" />
 
-<form th:action="@{/languages/guardar}" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Código del Idioma:</label>
+                            <input type="text" name="code" class="form-control" th:value="${language.language_code}" required />
+                        </div>
 
-    <input type="hidden" name="language_id" th:value="${language.language_id}" />
+                        <div class="mb-3">
+                            <label class="form-label">Nombre del Idioma:</label>
+                            <input type="text" name="nombreLanguage" class="form-control" th:value="${language.language_name}" required />
+                        </div>
 
-    <div>
-        <label>Código del Idioma:</label>
-        <input type="text" name="code" th:value="${language.language_code}" required />
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">Guardar Cambios</button>
+                            <a th:href="@{/language}" class="btn btn-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
+</div>
 
-    <div>
-        <label>Nombre del Idioma:</label>
-        <input type="text" name="nombreLanguage" th:value="${language.language_name}" required />
-    </div>
-
-    <br>
-    <button type="submit">Guardar Cambios</button>
-    <a th:href="@{/language}">Cancelar</a>
-</form>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
