@@ -17,10 +17,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class movieController {
@@ -43,10 +45,18 @@ public class movieController {
     personService personService;
 
     @GetMapping("/movies")
-    public String listMovies(@RequestParam(required = false) String title, @RequestParam(required = false) String actor, @RequestParam(required = false) String genre, Model model) {
+    public String listMovies(@RequestParam(required = false) String title, @RequestParam(required = false) String actor, @RequestParam(required = false) String genre, Model model,
+                             @RequestParam(defaultValue = "0") int page,
+                             @RequestParam(defaultValue = "10") int size) {
 
-        List<movie> movies = movieService.searchMovies(title, actor, genre);
-        model.addAttribute("movies", movies);
+        org.springframework.data.domain.Page<movie> moviesPage = movieService.searchMoviesPaginated(title, actor, genre, page, size);
+        model.addAttribute("moviesPage", moviesPage);
+        model.addAttribute("movies", moviesPage.getContent());
+        model.addAttribute("title", title);
+        model.addAttribute("actor", actor);
+        model.addAttribute("genre", genre);
+        model.addAttribute("page", page);
+        model.addAttribute("size", size);
 
         return "movies";
     }
@@ -102,15 +112,21 @@ public class movieController {
     }
 
     @GetMapping("/movies/detalles/{id}")
-    public String detallesPelicula(@PathVariable Integer id, Model model) {
+    public String detallesPelicula(@PathVariable Integer id, Model model,
+                                   @RequestParam(defaultValue = "0") int castPage,
+                                   @RequestParam(defaultValue = "5") int castSize,
+                                   @RequestParam(defaultValue = "0") int crewPage,
+                                   @RequestParam(defaultValue = "5") int crewSize) {
         movie m = movieService.findById(id);
-        List<movie_cast> cast = movieCastService.findByMovieId(id);
-        List<movie_crew> crew = movieCrewService.findByMovieId(id);
+        org.springframework.data.domain.Page<movie_cast> castPageObj = movieCastService.findByMovieIdPaginated(id, castPage, castSize);
+        org.springframework.data.domain.Page<movie_crew> crewPageObj = movieCrewService.findByMovieIdPaginated(id, crewPage, crewSize);
         List<person> allPersons = personService.findAll();
 
         model.addAttribute("movie", m);
-        model.addAttribute("cast", cast);
-        model.addAttribute("crew", crew);
+        model.addAttribute("castPage", castPageObj);
+        model.addAttribute("cast", castPageObj.getContent());
+        model.addAttribute("crewPage", crewPageObj);
+        model.addAttribute("crew", crewPageObj.getContent());
         model.addAttribute("allPersons", allPersons);
         return "movie_detalles";
     }
@@ -124,9 +140,9 @@ public class movieController {
         id.setPerson_id(personId);
         id.setGender_id(genderId);
         cast.setId(id);
-        cast.setMovie_id(movieService.findById(movieId));
-        cast.setPerson_id(personService.findById(personId));
-        cast.setGender_id(genderService.findById(genderId));
+        cast.setMovie(movieService.findById(movieId));
+        cast.setPerson(personService.findById(personId));
+        cast.setGender(genderService.findById(genderId));
         cast.setCharacter_name(characterName);
 
         movieCastService.save(cast);
@@ -167,5 +183,27 @@ public class movieController {
         id.setPerson_id(personId);
         movieCrewService.delete(id);
         return "redirect:/movies/detalles/" + movieId;
+    }
+
+    @GetMapping("/person/autocomplete")
+    public ResponseEntity<List<PersonDTO>> autocompletePersona(@RequestParam String query) {
+        List<person> personas = personService.findByNameContaining(query);
+        List<PersonDTO> result = personas.stream()
+                .map(p -> new PersonDTO(p.getPerson_id(), p.getPerson_name()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
+    }
+
+    public static class PersonDTO {
+        public Integer id;
+        public String name;
+
+        public PersonDTO(Integer id, String name) {
+            this.id = id;
+            this.name = name;
+        }
+
+        public Integer getId() { return id; }
+        public String getName() { return name; }
     }
 }

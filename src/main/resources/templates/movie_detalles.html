@@ -50,15 +50,31 @@
                     <tr th:each="c : ${cast}">
                         <td th:text="${c.person.person_name}"></td>
                         <td th:text="${c.character_name}"></td>
-                        <td th:text="${c.gender_id.gender}"></td>
+                        <td th:text="${c.gender.gender}"></td>
                         <td th:text="${c.cast_order}"></td>
                         <td>
-                            <a th:href="@{/movies/{movieId}/cast/eliminar/{personId}/{genderId}(movieId=${movie.movie_id}, personId=${c.person_id.person_id}, genderId=${c.gender_id.gender_id})}" class="btn btn-sm btn-danger"
+                            <a th:href="@{/movies/{movieId}/cast/eliminar/{personId}/{genderId}(movieId=${movie.movie_id}, personId=${c.person.person_id}, genderId=${c.gender.gender_id})}" class="btn btn-sm btn-danger"
                                onclick="return confirm('¿Eliminar este actor?')">Eliminar</a>
                         </td>
                     </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div th:if="${castPage != null}" class="d-flex justify-content-center mt-3">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${castPage.first} ? 'disabled'">
+                            <a class="page-link" th:href="@{/movies/detalles/{id}(id=${movie.movie_id},castPage=${castPage.number-1},castSize=${castPage.size})}">Anterior</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">Página <span th:text="${castPage.number + 1}">1</span> de <span th:text="${castPage.totalPages}">1</span></span>
+                        </li>
+                        <li class="page-item" th:classappend="${castPage.last} ? 'disabled'">
+                            <a class="page-link" th:href="@{/movies/detalles/{id}(id=${movie.movie_id},castPage=${castPage.number+1},castSize=${castPage.size})}">Siguiente</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
             <h5 class="mt-4 mb-3">Añadir Actor</h5>
@@ -112,6 +128,22 @@
                     </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <div th:if="${crewPage != null}" class="d-flex justify-content-center mt-3">
+                <nav>
+                    <ul class="pagination">
+                        <li class="page-item" th:classappend="${crewPage.first} ? 'disabled'">
+                            <a class="page-link" th:href="@{/movies/detalles/{id}(id=${movie.movie_id},crewPage=${crewPage.number-1},crewSize=${crewPage.size})}">Anterior</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <span class="page-link">Página <span th:text="${crewPage.number + 1}">1</span> de <span th:text="${crewPage.totalPages}">1</span></span>
+                        </li>
+                        <li class="page-item" th:classappend="${crewPage.last} ? 'disabled'">
+                            <a class="page-link" th:href="@{/movies/detalles/{id}(id=${movie.movie_id},crewPage=${crewPage.number+1},crewSize=${crewPage.size})}">Siguiente</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
 
             <h5 class="mt-4 mb-3">Añadir Miembro del Equipo</h5>

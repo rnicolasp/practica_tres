@@ -50,9 +50,9 @@
                     <label class="form-label">Géneros:</label>
                     <div class="border p-2 rounded">
                         <div th:each="genre : ${allGenres}" class="form-check">
-                            <input type="checkbox" class="form-check-input" name="selectedGenres" th:value="${genre.genre_id}" th:id="genre_${genre.genre_id}"
+                            <input type="checkbox" class="form-check-input" name="selectedGenres" th:value="${genre.genre_id}" th:id="|genre_${genre.genre_id}|"
                                    th:checked="${movie.genres.contains(genre)}" />
-                            <label class="form-check-label" th:for="genre_${genre.genre_id}" th:text="${genre.genre_name}"></label>
+                            <label class="form-check-label" th:for="|genre_${genre.genre_id}|" th:text="${genre.genre_name}"></label>
                         </div>
                     </div>
                 </div>

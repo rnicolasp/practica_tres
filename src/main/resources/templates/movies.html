@@ -11,12 +11,22 @@
 <div class="container mt-5">
     <h1>Buscador de Películas</h1>
 
-    <form th:action="@{/movies}" method="get">
-        <input type="text" name="title" placeholder="titulo...">
-        <input type="text" name="actor" placeholder="actor..">
-        <input type="text" name="genre" placeholder="genero...">
-        <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
-        <a th:href="@{/movies}" class="btn btn-sm btn-secondary">Reset</a>
+    <form th:action="@{/movies}" method="get" class="row g-2 mb-3">
+        <div class="col-auto">
+            <input class="form-control form-control-sm" th:value="${title}" type="text" name="title" placeholder="titulo...">
+        </div>
+        <div class="col-auto">
+            <input class="form-control form-control-sm" th:value="${actor}" type="text" name="actor" placeholder="actor..">
+        </div>
+        <div class="col-auto">
+            <input class="form-control form-control-sm" th:value="${genre}" type="text" name="genre" placeholder="genero...">
+        </div>
+        <div class="col-auto">
+            <input type="hidden" name="page" th:value="${page}" />
+            <input type="hidden" name="size" th:value="${size}" />
+            <button type="submit" class="btn btn-sm btn-primary">Buscar</button>
+            <a th:href="@{/movies}" class="btn btn-sm btn-secondary">Reset</a>
+        </div>
     </form>
 
     <hr>
@@ -57,6 +67,21 @@
                 </table>
             </div>
         </div>
+    </div>
+    <div th:if="${moviesPage != null}" class="d-flex justify-content-center mb-4">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item" th:classappend="${moviesPage.first} ? 'disabled'">
+                    <a class="page-link" th:href="@{/movies(title=${title},actor=${actor},genre=${genre},page=${moviesPage.number-1},size=${moviesPage.size})}">Anterior</a>
+                </li>
+                <li class="page-item disabled">
+                    <span class="page-link">Página <span th:text="${moviesPage.number + 1}">1</span> de <span th:text="${moviesPage.totalPages}">1</span></span>
+                </li>
+                <li class="page-item" th:classappend="${moviesPage.last} ? 'disabled'">
+                    <a class="page-link" th:href="@{/movies(title=${title},actor=${actor},genre=${genre},page=${moviesPage.number+1},size=${moviesPage.size})}">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
     </div>
     <p th:if="${#lists.isEmpty(movies)}">No se han encontrado peluiculas.</p>
 </div>

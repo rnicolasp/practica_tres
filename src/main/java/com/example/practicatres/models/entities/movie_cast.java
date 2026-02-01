@@ -59,29 +59,7 @@ public class movie_cast {
         this.id = id;
     }
 
-    public movie getMovie_id() {
-        return movie;
-    }
 
-    public void setMovie_id(movie movie_id) {
-        this.movie = movie_id;
-    }
-
-    public person getPerson_id() {
-        return person;
-    }
-
-    public void setPerson_id(person person_id) {
-        this.person = person_id;
-    }
-
-    public gender getGender_id() {
-        return gender;
-    }
-
-    public void setGender_id(gender gender_id) {
-        this.gender = gender_id;
-    }
 
     public String getCharacter_name() {
         return character_name;

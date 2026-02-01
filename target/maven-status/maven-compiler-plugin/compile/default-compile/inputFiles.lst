@@ -5,7 +5,9 @@
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/keywordController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/languageController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/mainController.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/movieCastController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/movieController.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/personController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/company.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/country.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/department.java
