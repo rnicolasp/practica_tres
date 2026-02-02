@@ -72,7 +72,7 @@
                     <span class="page-link">Página <span th:text="${castsPage.number + 1}">1</span> de <span th:text="${castsPage.totalPages}">1</span></span>
                 </li>
                 <li class="page-item" th:classappend="${castsPage.last} ? 'disabled'">
-                    <a class="page-link" th:href="@{/moviecast/search(q=${q},page=${castsPage.number+1},size=${castsPage.size})}">Siguiente</a>
+                    <a class="page-link" th:href="@{/moviecast(q=${q},page=${castsPage.number+1},size=${castsPage.size})}">Siguiente</a>
                 </li>
             </ul>
         </nav>

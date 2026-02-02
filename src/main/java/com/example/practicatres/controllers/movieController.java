@@ -120,14 +120,12 @@ public class movieController {
         movie m = movieService.findById(id);
         org.springframework.data.domain.Page<movie_cast> castPageObj = movieCastService.findByMovieIdPaginated(id, castPage, castSize);
         org.springframework.data.domain.Page<movie_crew> crewPageObj = movieCrewService.findByMovieIdPaginated(id, crewPage, crewSize);
-        List<person> allPersons = personService.findAll();
 
         model.addAttribute("movie", m);
         model.addAttribute("castPage", castPageObj);
         model.addAttribute("cast", castPageObj.getContent());
         model.addAttribute("crewPage", crewPageObj);
         model.addAttribute("crew", crewPageObj.getContent());
-        model.addAttribute("allPersons", allPersons);
         return "movie_detalles";
     }
 
