@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,7 @@
             <h2>Gestión de Cast (Actores)</h2>
         </div>
         <div class="col-auto">
-            <a th:href="@{/moviecast/nuevo}" class="btn btn-primary">+ Asignar Actor</a>
+            <a th:href="@{/moviecast/nuevo}" class="btn btn-primary" sec:authorize="isAuthenticated()">+ Asignar Actor</a>
         </div>
     </div>
 
@@ -51,8 +51,8 @@
                 <td th:text="${cast.getCharacter_name()}"></td>
                 <td th:text="${cast.getCast_order()}"></td>
                 <td>
-                    <a th:href="@{/moviecast/eliminar/{movie_id}/{person_id}/{gender_id}(movie_id=${cast.getId().getMovie_id()}, person_id=${cast.getId().getPerson_id()}, gender_id=${cast.getId().getGender_id()})}" 
-                       class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                          <a th:href="@{/moviecast/eliminar/{movie_id}/{person_id}/{gender_id}(movie_id=${cast.getId().getMovie_id()}, person_id=${cast.getId().getPerson_id()}, gender_id=${cast.getId().getGender_id()})}" 
+                              class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')" sec:authorize="isAuthenticated()">Eliminar</a>
                 </td>
             </tr>
             </tbody>
@@ -60,7 +60,7 @@
     </div>
 
     <div th:if="${#lists.isEmpty(casts)}" class="alert alert-info">
-        No hay asignaciones de cast. <a th:href="@{/moviecast/nuevo}">Crear una nueva</a>
+        No hay asignaciones de cast. <a th:href="@{/moviecast/nuevo}" sec:authorize="isAuthenticated()">Crear una nueva</a>
     </div>
     <div th:if="${castsPage != null}" class="d-flex justify-content-center mt-3">
         <nav>

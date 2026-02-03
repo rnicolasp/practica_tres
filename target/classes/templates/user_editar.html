@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar Usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{navbar :: navbar}"></div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <h2 th:text="${tituloPagina}">Editar Usuario</h2>
+            
+            <form th:action="@{/user/guardar}" method="post" th:object="${user}">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario:</label>
+                    <input type="text" id="username" name="username" th:field="*{username}" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Contraseña:</label>
+                    <input type="password" id="password" name="password" class="form-control" 
+                           th:required="${user.user_id == null}">
+                    <small class="form-text text-muted">Dejar en blanco si no quieres cambiar la contraseña (edición)</small>
+                </div>
+
+                <div class="mb-3">
+                    <label for="enabled" class="form-label">
+                        <input type="checkbox" id="enabled" name="enabled" th:field="*{enabled}">
+                        Habilitado
+                    </label>
+                </div>
+
+                <div class="mb-3">
+                    <label for="roles" class="form-label">Roles:</label>
+                    <select id="roles" name="selectedRoles" class="form-select" multiple>
+                        <option th:each="role : ${roles}" 
+                                th:value="${role.role_id}"
+                                th:text="${role.role_name}"
+                                th:selected="${user.roles.contains(role)}">
+                        </option>
+                    </select>
+                    <small class="form-text text-muted">Selecciona uno o más roles (Ctrl+Click)</small>
+                </div>
+
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                    <a th:href="@{/user}" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

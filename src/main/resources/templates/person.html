@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +15,7 @@
             <h2>Gestión de Actores/Personal</h2>
         </div>
         <div class="col-auto">
-            <a th:href="@{/person/nuevo}" class="btn btn-primary">+ Nueva Persona</a>
+            <a th:href="@{/person/nuevo}" class="btn btn-primary" sec:authorize="isAuthenticated()">+ Nueva Persona</a>
         </div>
     </div>
 
@@ -45,8 +45,8 @@
                 <td th:text="${person.person_id}"></td>
                 <td th:text="${person.person_name}"></td>
                 <td>
-                    <a th:href="@{/person/editar/{id}(id=${person.person_id})}" class="btn btn-sm btn-warning">Editar</a>
-                    <a th:href="@{/person/eliminar/{id}(id=${person.person_id})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                    <a th:href="@{/person/editar/{id}(id=${person.person_id})}" class="btn btn-sm btn-warning" sec:authorize="isAuthenticated()">Editar</a>
+                    <a th:href="@{/person/eliminar/{id}(id=${person.person_id})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Estás seguro?')" sec:authorize="isAuthenticated()">Eliminar</a>
                 </td>
             </tr>
             </tbody>
@@ -54,7 +54,7 @@
     </div>
 
     <div th:if="${#lists.isEmpty(persons)}" class="alert alert-info">
-        No hay personas registradas. <a th:href="@{/person/nuevo}">Crear una nueva</a>
+        No hay personas registradas. <a th:href="@{/person/nuevo}" sec:authorize="isAuthenticated()">Crear una nueva</a>
     </div>
     <div th:if="${personsPage != null}" class="d-flex justify-content-center mt-3">
         <nav>

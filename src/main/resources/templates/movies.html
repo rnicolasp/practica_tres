@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>pelis</title>
@@ -14,7 +14,7 @@
             <h1>Buscador de Películas</h1>
         </div>
         <div class="col-auto">
-            <a th:href="@{/movies/nuevo}" class="btn btn-primary">+ Nueva Película</a>
+            <a th:href="@{/movies/nuevo}" class="btn btn-primary" sec:authorize="isAuthenticated()">+ Nueva Película</a>
         </div>
     </div>
 
@@ -65,9 +65,9 @@
                         <td th:text="${#dates.format(m.release_date, 'dd/MM/yyyy')}"></td>
                         <td>
                             <a th:href="@{/movies/detalles/{id}(id=${m.movie_id})}" class="btn btn-sm btn-primary">Detalles</a>
-                            <a th:href="@{/movies/editar/{id}(id=${m.movie_id})}" class="btn btn-sm btn-warning">Editar</a>
-                            <a th:href="@{/movies/eliminar/{id}(id=${m.movie_id})}"
-                               onclick="return confirm('Eliminar?')" class="btn btn-sm btn-danger">Eliminar</a>
+                                     <a th:href="@{/movies/editar/{id}(id=${m.movie_id})}" class="btn btn-sm btn-warning" sec:authorize="isAuthenticated()">Editar</a>
+                                     <a th:href="@{/movies/eliminar/{id}(id=${m.movie_id})}"
+                                         onclick="return confirm('Eliminar?')" class="btn btn-sm btn-danger" sec:authorize="isAuthenticated()">Eliminar</a>
                         </td>
                     </tr>
                     </tbody>

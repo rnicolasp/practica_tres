@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
 </head>
 <body>
 <div th:replace="~{navbar :: navbar}"></div>
-<div>
+<div sec:authorize="isAuthenticated()">
     <div>Añadir Nuevo Género</div>
     <div>
         <form th:action="@{/genders/guardar}" method="post">
@@ -33,11 +33,11 @@
     <tr th:each="g : ${genders}">
         <td th:text="${g.gender_id}"></td>
         <td th:text="${g.gender}"></td>
-        <td>
-            <a th:href="@{/gender/editar/{id}(id=${g.gender_id})}">Editar</a>
-            <a th:href="@{/gender/eliminar/{id}(id=${g.gender_id})}"
-               onclick="return confirm('¿Seguro?')">Eliminar</a>
-        </td>
+                <td>
+                <a th:href="@{/gender/editar/{id}(id=${g.gender_id})}" sec:authorize="isAuthenticated()">Editar</a>
+                <a th:href="@{/gender/eliminar/{id}(id=${g.gender_id})}"
+                    onclick="return confirm('¿Seguro?')" sec:authorize="isAuthenticated()">Eliminar</a>
+          </td>
     </tr>
     </tbody>
 </table>

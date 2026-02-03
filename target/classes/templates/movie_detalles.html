@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -57,7 +57,7 @@
                         <td th:text="${c.cast_order}"></td>
                         <td>
                             <a th:href="@{/movies/{movieId}/cast/eliminar/{personId}/{genderId}(movieId=${movie.movie_id}, personId=${c.person.person_id}, genderId=${c.gender.gender_id})}" class="btn btn-sm btn-danger"
-                               onclick="return confirm('¿Eliminar este actor?')">Eliminar</a>
+                               onclick="return confirm('¿Eliminar este actor?')" sec:authorize="isAuthenticated()">Eliminar</a>
                         </td>
                     </tr>
                     </tbody>
@@ -81,7 +81,7 @@
             </div>
 
             <h5 class="mt-4 mb-3">Añadir Actor</h5>
-            <form th:action="@{/movies/{movieId}/cast/guardar(movieId=${movie.movie_id})}" method="post">
+                <form th:action="@{/movies/{movieId}/cast/guardar(movieId=${movie.movie_id})}" method="post" sec:authorize="isAuthenticated()">
                 <div class="mb-3">
                     <label class="form-label">Persona:</label>
                     <input type="text" id="personAutocomplete" class="form-control" placeholder="Buscar actor..." required />
@@ -125,7 +125,7 @@
                         <td th:text="${cr.department}"></td>
                         <td>
                             <a th:href="@{/movies/{movieId}/crew/eliminar/{personId}(movieId=${movie.movie_id}, personId=${cr.person.person_id})}" class="btn btn-sm btn-danger"
-                               onclick="return confirm('¿Eliminar este miembro del equipo?')">Eliminar</a>
+                               onclick="return confirm('¿Eliminar este miembro del equipo?')" sec:authorize="isAuthenticated()">Eliminar</a>
                         </td>
                     </tr>
                     </tbody>
@@ -149,7 +149,7 @@
             </div>
 
             <h5 class="mt-4 mb-3">Añadir Miembro del Equipo</h5>
-            <form th:action="@{/movies/{movieId}/crew/guardar(movieId=${movie.movie_id})}" method="post">
+            <form th:action="@{/movies/{movieId}/crew/guardar(movieId=${movie.movie_id})}" method="post" sec:authorize="isAuthenticated()">
                 <div class="mb-3">
                     <label class="form-label">Persona:</label>
                     <input type="text" id="crewPersonAutocomplete" class="form-control" placeholder="Buscar persona..." required />

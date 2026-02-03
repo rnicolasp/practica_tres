@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,7 @@
         <div class="card-header bg-primary text-white">
             <h5 class="mb-0">Añadir Nuevo Idioma</h5>
         </div>
-        <div class="card-body">
+        <div class="card-body" sec:authorize="isAuthenticated()">
             <form th:action="@{/languages/guardar}" method="post">
                 <div class="mb-3">
                     <input type="text" name="code" class="form-control" placeholder="Código" required>
@@ -45,8 +45,8 @@
                 <td th:text="${l.language_code}"></td>
                 <td th:text="${l.language_name}"></td>
                 <td>
-                    <a th:href="@{/language/editar/{id}(id=${l.language_id})}" class="btn btn-sm btn-warning">Editar</a>
-                    <a th:href="@{/language/eliminar/{id}(id=${l.language_id})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro?')">Eliminar</a>
+                    <a th:href="@{/language/editar/{id}(id=${l.language_id})}" class="btn btn-sm btn-warning" sec:authorize="isAuthenticated()">Editar</a>
+                    <a th:href="@{/language/eliminar/{id}(id=${l.language_id})}" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro?')" sec:authorize="isAuthenticated()">Eliminar</a>
                 </td>
             </tr>
             </tbody>

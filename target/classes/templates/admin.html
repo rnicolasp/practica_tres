@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .admin-card {
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .admin-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        .admin-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+<div th:replace="~{navbar :: navbar}"></div>
+
+<div class="container mt-5">
+    <div class="row mb-5">
+        <div class="col">
+            <h1>Panel de Administración</h1>
+            <p class="text-muted">Gestión completa de la base de datos</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">🎬</div>
+                    <h5 class="card-title">Películas</h5>
+                    <p class="card-text">Gestiona el catálogo de películas</p>
+                    <a th:href="@{/movies}" class="btn btn-primary btn-sm">Ver Películas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">👤</div>
+                    <h5 class="card-title">Actores</h5>
+                    <p class="card-text">Administra personas y actores</p>
+                    <a th:href="@{/person}" class="btn btn-primary btn-sm">Ver Actores</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">📖</div>
+                    <h5 class="card-title">Géneros</h5>
+                    <p class="card-text">Clasifica películas por género</p>
+                    <a th:href="@{/genre}" class="btn btn-primary btn-sm">Ver Géneros</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">🔑</div>
+                    <h5 class="card-title">Keywords</h5>
+                    <p class="card-text">Etiquetas y palabras clave</p>
+                    <a th:href="@{/keyword}" class="btn btn-primary btn-sm">Ver Keywords</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">🌍</div>
+                    <h5 class="card-title">Países</h5>
+                    <p class="card-text">Gestiona países de origen</p>
+                    <a th:href="@{/country}" class="btn btn-primary btn-sm">Ver Países</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">👅</div>
+                    <h5 class="card-title">Idiomas</h5>
+                    <p class="card-text">Lenguajes disponibles</p>
+                    <a th:href="@{/language}" class="btn btn-primary btn-sm">Ver Idiomas</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">👥</div>
+                    <h5 class="card-title">Cast (Actores)</h5>
+                    <p class="card-text">Asignaciones de actores a películas</p>
+                    <a th:href="@{/moviecast}" class="btn btn-primary btn-sm">Ver Cast</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">🍕</div>
+                    <h5 class="card-title">Géneros (Gender)</h5>
+                    <p class="card-text">Clasificación de género</p>
+                    <a th:href="@{/gender}" class="btn btn-primary btn-sm">Ver Géneros</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card admin-card h-100">
+                <div class="card-body text-center">
+                    <div class="admin-icon">🔐</div>
+                    <h5 class="card-title">Usuarios</h5>
+                    <p class="card-text">Gestiona usuarios y permisos</p>
+                    <a th:href="@{/user}" class="btn btn-primary btn-sm" sec:authorize="hasRole('ADMIN')">Ver Usuarios</a>
+                    <span class="text-muted" sec:authorize="!hasRole('ADMIN')">Solo para administradores</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col">
+            <div class="alert alert-info">
+                <strong>Nota:</strong> Todos los cambios realizados en este panel se aplicarán directamente a la base de datos.
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
