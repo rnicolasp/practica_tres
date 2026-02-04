@@ -53,20 +53,27 @@ public class UserController {
     }
 
     @PostMapping("/guardar")
-    public String guardarUsuario(@ModelAttribute User user, @RequestParam(required = false) Integer[] selectedRoles) {
-        userService.save(user);
-        
+    public String guardarUsuario(@ModelAttribute User user, @RequestParam(required = false) Integer[] selectedRoles, Model model) {
+        if ((user.getUser_id() == null || user.getUser_id() == 0) && userService.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("error", "El usuario ya existe");
+            model.addAttribute("user", user);
+            model.addAttribute("tituloPagina", user.getUser_id() == null ? "Nuevo Usuario" : "Editar Usuario");
+            List<Role> roles = roleRepository.findAll();
+            model.addAttribute("roles", roles);
+            return "user_editar";
+        }
+
+        user.getRoles().clear();
         if (selectedRoles != null) {
-            user.getRoles().clear();
             for (Integer roleId : selectedRoles) {
                 Role role = roleRepository.findById(roleId).orElse(null);
                 if (role != null) {
                     user.getRoles().add(role);
                 }
             }
-            userService.save(user);
         }
-        
+
+        userService.save(user);
         return "redirect:/user";
     }
 

@@ -4,6 +4,7 @@ import com.example.practicatres.models.entities.User;
 import com.example.practicatres.models.entities.Role;
 import com.example.practicatres.repository.UserRepository;
 import com.example.practicatres.repository.RoleRepository;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -29,8 +30,22 @@ public class UserService {
     public User save(User user) {
         if (user.getUser_id() == null || user.getUser_id() == 0) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
+            return userRepository.save(user);
+        } else {
+            User existing = userRepository.findById(user.getUser_id()).orElse(null);
+            if (existing != null) {
+                if (user.getPassword() == null || user.getPassword().isEmpty()) {
+                    user.setPassword(existing.getPassword());
+                } else {
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                }
+            } else {
+                if (user.getPassword() != null) {
+                    user.setPassword(passwordEncoder.encode(user.getPassword()));
+                }
+            }
+            return userRepository.save(user);
         }
-        return userRepository.save(user);
     }
 
     public User findById(Integer id) {
@@ -93,5 +108,11 @@ public class UserService {
             }
             save(admin);
         }
+    }
+
+    @PostConstruct
+    public void init() {
+        initializeDefaultRoles();
+        createDefaultAdmin();
     }
 }

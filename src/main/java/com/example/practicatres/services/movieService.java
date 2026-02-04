@@ -15,30 +15,34 @@ public class movieService {
     @Autowired
     movieRepo movieRepository;
 
-    public List<movie> searchMovies(String title, String actor, String genre) {
-        if (title != null && !title.isEmpty()) {
-            return movieRepository.findByTitleContainingIgnoreCase(title);
-        }
-        if (actor != null && !actor.isEmpty()) {
-            return movieRepository.findByActorOrCharacterName(actor);
-        }
-        if (genre != null && !genre.isEmpty()) {
-            return movieRepository.findByGenreName(genre);
-        }
-        return movieRepository.findAll();
-    }
-
-    public Page<movie> searchMoviesPaginated(String title, String actorOrCharacter, String genre, int page, int size) {
+    public Page<movie> searchMoviesPaginated(String title, String actorOrCharacter, String genre, 
+                                             String director, Integer year,
+                                             int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         boolean hasTitle = title != null && !title.trim().isEmpty();
         boolean hasActor = actorOrCharacter != null && !actorOrCharacter.trim().isEmpty();
         boolean hasGenre = genre != null && !genre.trim().isEmpty();
+        boolean hasDirector = director != null && !director.trim().isEmpty();
+        boolean hasYear = year != null;
+
+        if (hasYear && hasGenre) {
+            return movieRepository.findByGenreAndYear(genre, year, pageable);
+        }
+        if (hasYear && hasDirector) {
+            return movieRepository.findByDirectorAndYear(director, year, pageable);
+        }
 
         if (hasActor) {
             return movieRepository.findByActorOrCharacterName(actorOrCharacter, pageable);
         }
         if (hasGenre) {
             return movieRepository.findByGenreName(genre, pageable);
+        }
+        if (hasDirector) {
+            return movieRepository.findByDirectorName(director, pageable);
+        }
+        if (hasYear) {
+            return movieRepository.findByReleaseYear(year, pageable);
         }
         if (hasTitle) {
             return movieRepository.findByTitleContainingIgnoreCase(title, pageable);

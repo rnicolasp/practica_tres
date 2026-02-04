@@ -44,4 +44,19 @@ public interface movieRepo extends JpaRepository<movie, Integer> {
             "JOIN mcr.person p " +
             "WHERE LOWER(p.person_name) LIKE LOWER(CONCAT('%', :name, '%')) AND mcr.job = 'Director'")
     Page<movie> findByDirectorName(@Param("name") String name, Pageable pageable);
+
+    @Query("SELECT m FROM movie m WHERE FUNCTION('YEAR', m.release_date) = :year")
+    Page<movie> findByReleaseYear(@Param("year") Integer year, Pageable pageable);
+
+    @Query("SELECT DISTINCT m FROM movie_crew mcr " +
+            "JOIN mcr.movie m " +
+            "JOIN mcr.person p " +
+            "WHERE LOWER(p.person_name) LIKE LOWER(CONCAT('%', :director, '%')) AND mcr.job = 'Director' " +
+            "AND FUNCTION('YEAR', m.release_date) = :year")
+    Page<movie> findByDirectorAndYear(@Param("director") String director, @Param("year") Integer year, Pageable pageable);
+
+    @Query("SELECT m FROM movie m JOIN m.genres g " +
+            "WHERE LOWER(g.genre_name) LIKE LOWER(CONCAT('%', :genre, '%')) " +
+            "AND FUNCTION('YEAR', m.release_date) = :year")
+    Page<movie> findByGenreAndYear(@Param("genre") String genre, @Param("year") Integer year, Pageable pageable);
 }

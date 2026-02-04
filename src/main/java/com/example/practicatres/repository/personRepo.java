@@ -15,4 +15,9 @@ public interface personRepo extends JpaRepository<person, Integer> {
 
     @Query("SELECT p FROM person p WHERE LOWER(p.person_name) LIKE LOWER(CONCAT('%', :name, '%'))")
     Page<person> findByPersonNameContainingIgnoreCase(@Param("name") String name, Pageable pageable);
+
+    @Query("SELECT DISTINCT p FROM movie_crew mc " +
+            "JOIN mc.person p " +
+            "WHERE mc.job = 'Director' AND LOWER(p.person_name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    List<person> findDirectorsByNameContaining(@Param("name") String name);
 }

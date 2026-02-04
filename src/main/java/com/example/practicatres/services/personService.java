@@ -35,6 +35,10 @@ public class personService {
         return personRepository.findByPersonNameContainingIgnoreCase(name);
     }
 
+    public List<person> findDirectorsByNameContaining(String name) {
+        return personRepository.findDirectorsByNameContaining(name);
+    }
+
     public Page<person> findPaginated(int page, int size, String query) {
         Pageable pageable = PageRequest.of(page, size);
         if (query == null || query.trim().isEmpty()) {

@@ -7,6 +7,9 @@ import com.example.practicatres.models.entities.movie_cast_id;
 import com.example.practicatres.models.entities.movie_crew;
 import com.example.practicatres.models.entities.movie_crew_id;
 import com.example.practicatres.models.entities.person;
+import com.example.practicatres.models.dto.PersonDTO;
+import com.example.practicatres.models.dto.GenreDTO;
+import com.example.practicatres.models.dto.DirectorDTO;
 import com.example.practicatres.services.genderService;
 import com.example.practicatres.services.genreService;
 import com.example.practicatres.services.movieCastService;
@@ -45,18 +48,25 @@ public class movieController {
     personService personService;
 
     @GetMapping("/movies")
-    public String listMovies(@RequestParam(required = false) String title, @RequestParam(required = false) String actor, @RequestParam(required = false) String genre, Model model,
+    public String listMovies(@RequestParam(required = false) String title, @RequestParam(required = false) String actor, @RequestParam(required = false) String genre,
+                             @RequestParam(required = false) String director, @RequestParam(required = false) Integer year,
+                             Model model,
                              @RequestParam(defaultValue = "0") int page,
                              @RequestParam(defaultValue = "40") int size) {
 
-        org.springframework.data.domain.Page<movie> moviesPage = movieService.searchMoviesPaginated(title, actor, genre, page, size);
+        org.springframework.data.domain.Page<movie> moviesPage = movieService.searchMoviesPaginated(title, actor, genre, director, year, page, size);
         model.addAttribute("moviesPage", moviesPage);
         model.addAttribute("movies", moviesPage.getContent());
         model.addAttribute("title", title);
         model.addAttribute("actor", actor);
         model.addAttribute("genre", genre);
+        model.addAttribute("director", director);
+        model.addAttribute("year", year);
         model.addAttribute("page", page);
         model.addAttribute("size", size);
+        
+        List<genre> allGenres = genreService.findAll();
+        model.addAttribute("allGenres", allGenres);
 
         return "movies";
     }
@@ -192,16 +202,21 @@ public class movieController {
         return ResponseEntity.ok(result);
     }
 
-    public static class PersonDTO {
-        public Integer id;
-        public String name;
+    @GetMapping("/api/genres")
+    public ResponseEntity<List<GenreDTO>> getAllGenres() {
+        List<genre> genres = genreService.findAll();
+        List<GenreDTO> result = genres.stream()
+                .map(g -> new GenreDTO(g.getGenre_id(), g.getGenre_name()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
+    }
 
-        public PersonDTO(Integer id, String name) {
-            this.id = id;
-            this.name = name;
-        }
-
-        public Integer getId() { return id; }
-        public String getName() { return name; }
+    @GetMapping("/api/directors")
+    public ResponseEntity<List<DirectorDTO>> autocompleteDirector(@RequestParam(required = false) String query) {
+        List<person> directors = personService.findDirectorsByNameContaining(query != null ? query : "");
+        List<DirectorDTO> result = directors.stream()
+                .map(d -> new DirectorDTO(d.getPerson_name()))
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(result);
     }
 }
