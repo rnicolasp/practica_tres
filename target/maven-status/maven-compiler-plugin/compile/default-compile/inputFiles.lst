@@ -1,4 +1,6 @@
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/PracticatresApplication.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/RegisterController.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/UserController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/countryController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/genderController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/genreController.java
@@ -8,6 +10,11 @@
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/movieCastController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/movieController.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/controllers/personController.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/dto/DirectorDTO.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/dto/GenreDTO.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/dto/PersonDTO.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/Role.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/User.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/company.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/country.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/department.java
@@ -23,6 +30,8 @@
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/movie_crew_id.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/person.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/models/entities/production_company.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/RoleRepository.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/UserRepository.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/companyRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/countryRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/genderRepo.java
@@ -33,6 +42,9 @@
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/movieCrewRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/movieRepo.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/repository/personRepo.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/security/CustomUserDetailsService.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/security/SecurityConfig.java
+/home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/UserService.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/countryService.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/genderService.java
 /home/superior/IdeaProjects/practica_tres/src/main/java/com/example/practicatres/services/genreService.java

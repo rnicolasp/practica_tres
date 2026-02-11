@@ -1,5 +1,4 @@
 package com.example.practicatres.services;
-
 import com.example.practicatres.models.entities.movie;
 import com.example.practicatres.repository.movieRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +14,7 @@ public class movieService {
     @Autowired
     movieRepo movieRepository;
 
-    public Page<movie> searchMoviesPaginated(String title, String actorOrCharacter, String genre, 
-                                             String director, Integer year,
-                                             int page, int size) {
+    public Page<movie> searchMoviesPaginated(String title, String actorOrCharacter, String genre, String director, Integer year, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         boolean hasTitle = title != null && !title.trim().isEmpty();
         boolean hasActor = actorOrCharacter != null && !actorOrCharacter.trim().isEmpty();
